@@ -31,7 +31,7 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	msqs, err := ch.Consume(
+	msgs, err := ch.Consume(
 		q.Name, // queue
 		"",     // consumer
 		true,   // auto-ack
@@ -45,7 +45,7 @@ func main() {
 	forever := make(chan bool)
 
 	go func() {
-		for d := range msqs {
+		for d := range msgs {
 			log.Printf("Received a message: %s", d.Body)
 		}
 	}()
